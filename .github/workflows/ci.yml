@@ -39,4 +39,9 @@ jobs:
           echo "Status:    ${{ steps.buildx.outputs.status }}"
           echo "Flags:     ${{ steps.buildx.outputs.flags }}"
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
-
+      -
+        name: Jekyll Build
+        run: |
+          docker run \
+              -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
+              jekyll/builder:latest /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future && jekyll build --trace"
